@@ -43,3 +43,11 @@
 span .card{
     background-color: #626e6c;
 }
+
+/* Footer Section */
+#footerhead{
+    background-color: #eb661a;
+}
+#footertail{
+    background-color: #ff2600;
+}
