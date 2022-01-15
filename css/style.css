@@ -27,3 +27,19 @@
 .navbar{
     box-shadow:1px 1px 5px #626e6c;    
 }
+
+/* menu section */
+#menuimg{
+    width: 250px;
+    max-width: 100%;
+    height: auto;
+    border-radius: 20px;
+}
+#menuitem{
+    border-radius: 40px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+}
+span .card{
+    background-color: #626e6c;
+}
