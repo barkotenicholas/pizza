@@ -1,7 +1,29 @@
-
 /* Navigation */
 
-#logo{
+#logo {
     width: 100px;
     height: 100px;
+}
+
+.badge {
+    padding-left: 10px;
+    padding-right: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+}
+
+
+#count {
+    font-size: 10px;
+    background: #ffbb00;
+    vertical-align: top;
+    margin-left: -5px;
+    color: #000;
+    padding: 0 5px;
+
+}
+
+.navbar{
+    box-shadow:1px 1px 5px #626e6c;    
 }
