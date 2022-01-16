@@ -51,3 +51,20 @@ span .card{
 #footertail{
     background-color: #ff2600;
 }
+
+/* Order section */
+#ordersize{
+
+    display: inline-block;
+}
+
+#ordersize label{
+    display: block;
+}
+#ordercrust{
+    display: inline-block;
+
+}
+#ordercrust label{
+    display: block;
+}
