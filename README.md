@@ -34,6 +34,7 @@ Heinz is a pizza order application one can use to make home delivery fro pizza
 # Tech Stack
 
 - HTML
+- bootstrap
 - CSS
 - js
   
