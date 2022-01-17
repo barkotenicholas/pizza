@@ -1,22 +1,91 @@
-// order form
+import {
+    pizzacrust,
+    toppings,
+    pizzasizeprices
+} from './const.js'
 
+var value;
+
+// order form
 $("form").submit(function (e) {
     e.preventDefault();
 
+    var output;
+    if (validateValues()) {
+
+        console.log("validate values");
+        var price;
+        var small = $('#small').is(':checked');
+        var medium = $('#medium').is(':checked');
+        var large = $('#large').is(':checked');
+        var amount = $("#quanitity").val().trim();
+        if (small) {
+            value = "small";
+            price = price + pizzasizeprices[0].price;
+        } else if (medium) {
+            value = "medium";
+            price = price + pizzasizeprices[1].price;
+
+        } else if (large) {
+            value = "large";
+            price = price + pizzasizeprices[2].price;
+        }
+
+        var array = [];
+        var output;
+        var output2;
+        var output3;
+        
+        
+
+        const lis = document.getElementById('list').getElementsByTagName('li');
+
+        // Loop through the 
+        for (let i = 0; i <= lis.length - 1; i++) {
+            array[i] =lis[i].innerHTML;
+            
+        }
+        console.log(array.length)
+        for(let i = 0 ; i< array.length ;i++){
+            output2 +=` ${array[i]} <br>`
+        }
+
+        console.log(array)
+
+        output = `<h2 class="mt-2 text-uppercase text-decoration-underline">Order summary</h2>
+                  <h2 class="display-5">
+                  Order Size
+                  </h2> 
+                   <p>${value}</p>  
+                   <h2 class="display-5">
+                Type of crust
+                </h2> 
+        `
+    
+        output3 = `<h2 class="display-5">
+        Quantity
+        </h2> 
+        <p>${amount}</p>`
 
 
-    validateValues();
+        $('#ordersummary').html(output);
+        $('#ordersummary2').html(output2);
+        $('#ordersummary3').html(output3);
 
+
+    }
 });
 
-$("#Addtoppingbtn").click(function () {
-    
+$("#Addtoppingbtn").click(function (e) {
+
+    e.preventDefault();
+
     var topping = $('#top').find(":selected").text();
 
     var ul = document.getElementById("list");
 
     var li = document.createElement("li");
-    li.classList.add("list-group-item", "w-25" , "mt-2");
+    li.classList.add("list-group-item", "w-25", "mt-2");
     li.appendChild(document.createTextNode(topping));
     ul.appendChild(li);
 
@@ -40,100 +109,128 @@ function validateValues() {
     var quantity = $("#quanitity").val().trim();
 
 
+    var errcount = 0;
+    var resume;
 
-    if (small && medium && large) {
+    if (small) {
 
         setSuccessSizeMessage("Correct");
-       
-    } 
-     if (!small || !medium || !large) {
+
+    } else if (medium) {
+        setSuccessSizeMessage("Correct");
+    } else if (large) {
+        setSuccessSizeMessage("Correct");
+
+    } else if (!small && !medium && !large) {
 
         setErrorSizeMessage("please Choose pizza size");
-        
-    } 
-    if (crispy && stuffed && glut) {
+        errcount = errcount+ 1;
+    }
+    if (crispy) {
 
         setSuccessCrustMessage("Correct");
-        
+
+    } else if (stuffed) {
+        setSuccessCrustMessage("Correct");
+
+    } else if (glut) {
+        setSuccessCrustMessage("Correct");
+
     }
-    if (!crispy || !stuffed || !glut) {
+    if (!crispy && !stuffed && !glut) {
 
         setErrorCrustMessage("Please choose crust");
-        
+        errcount = errcount+ 1;
+
     }
+
     if (quantity == "") {
         setErrorQuantityMessage("Please enter quantity");
+        errcount = errcount+ 1;
+
     }
     if (!(quantity == "")) {
-        setSuccesQuantityMessage("correct");
+        if (isNaN(+quantity)) {
+            setErrorQuantityMessage("Please input a number")
+            errcount = errcount+ 1;
+
+        } else {
+            setSuccesQuantityMessage("correct");
+
+        }
     }
 
-
-    function setSuccessSizeMessage(message){
-
-
-        document.getElementById("SizeMessage").innerHTML = message;
-
-        var icon = document.getElementById("sizesuccessicon");
-
-        icon.classList.remove("d-none")
-
-
+    if (errcount == 0) {
+        resume = true;
+    } else if(errcount > 0){
+        resume = false;
     }
 
-    function setErrorSizeMessage(message){
+    return resume;
 
-        document.getElementById("SizeMessage").innerHTML = message;
+}
 
-        var icon = document.getElementById("sizefailureicon");
-
-        icon.classList.remove("d-none")
-
-    }
-
-    function setSuccessCrustMessage(message){
-
-        document.getElementById("CrustMessage").innerHTML = message;
-
-        var icon = document.getElementById("crustsuccessicon");
-
-        icon.classList.remove("d-none")
-        
-    }
-
-    function setErrorCrustMessage(message){
-
-        document.getElementById("CrustMessage").innerHTML = message;
-
-        var icon = document.getElementById("crustfailicon");
-
-        icon.classList.remove("d-none")
-
-    }
-
-    function setErrorQuantityMessage(message){
-
-        document.getElementById("QuantityMessage").innerHTML = message;
-
-        var icon = document.getElementById("Quantityerroricon");
-
-        icon.classList.remove("d-none")
+function setSuccessSizeMessage(message) {
 
 
-    }
+    document.getElementById("SizeMessage").innerHTML = message;
 
-    function setSuccesQuantityMessage(message){
+    var icon = document.getElementById("sizesuccessicon");
 
-       
-        document.getElementById("QuantityMessage").innerHTML = message;
+    icon.classList.remove("d-none")
 
-        var icon = document.getElementById("quantitysuccesicon");
 
-        icon.classList.remove("d-none")
- 
+}
 
-    }
+function setErrorSizeMessage(message) {
 
+    document.getElementById("SizeMessage").innerHTML = message;
+
+    var icon = document.getElementById("sizefailureicon");
+
+    icon.classList.remove("d-none")
+
+}
+
+function setSuccessCrustMessage(message) {
+
+    document.getElementById("CrustMessage").innerHTML = message;
+
+    var icon = document.getElementById("crustsuccessicon");
+
+    icon.classList.remove("d-none")
+
+}
+
+function setErrorCrustMessage(message) {
+
+    document.getElementById("CrustMessage").innerHTML = message;
+
+    var icon = document.getElementById("crustfailicon");
+
+    icon.classList.remove("d-none")
+
+}
+
+function setErrorQuantityMessage(message) {
+
+    document.getElementById("QuantityMessage").innerHTML = message;
+
+    var icon = document.getElementById("Quantityerroricon");
+
+    icon.classList.remove("d-none")
+
+
+}
+
+function setSuccesQuantityMessage(message) {
+
+
+    document.getElementById("QuantityMessage").innerHTML = message;
+
+    var icon = document.getElementById("quantitysuccesicon");
+
+    icon.classList.remove("d-none")
 
 
 }
