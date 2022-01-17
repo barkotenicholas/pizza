@@ -6,7 +6,15 @@ import {
 
 var value;
 var crust;
+
+$("#homedelivery").click(function (e) {
+    e.preventDefault();
+
+});
+
+
 // order form
+
 $("form").submit(function (e) {
     e.preventDefault();
 
@@ -22,6 +30,8 @@ $("form").submit(function (e) {
         var crispy = $('#crispy').is(':checked');
         var stuffed = $('#stuffed').is(':checked');
         var glut = $('#glut').is(':checked');
+
+
 
         if (small) {
             value = "small";
@@ -77,12 +87,14 @@ $("form").submit(function (e) {
 
         console.log(array)
 
+
+
+
         output = `<h2 class="mt-2 text-uppercase text-decoration-underline">Order checkout</h2>
                   <h2 class="display-5">
                   Order Size
                   </h2> 
                    <p>${value}</p>  
-                   <p> The total amount is ${price}</p>
                    <h2 class="display-5">
                 Type of crust
                 </h2> 
@@ -92,13 +104,39 @@ $("form").submit(function (e) {
         Quantity
         </h2> 
         <p>${amount}</p>
-        <p>Total amount is ${price}</p>
+        <p>Total amount is ${totalprice}</p>
+
+        
+
         `
 
 
         $('#ordersummary').html(output);
         $('#ordersummary2').html(output2);
         $('#ordersummary3').html(output3);
+
+        var totalprice = price * amount;
+
+        var button = document.createElement('button');
+        button.type = 'button';
+        button.innerHTML = 'Enter Delivery Location';
+        button.classList.add('btn');
+        button.classList.add('btn-danger');
+
+
+        button.onclick = function () {
+
+            console.log("Hello world");
+            let location = prompt("Please enter your Location:", "");
+
+            alert("your pizza will be delivered at " + location);
+        };
+
+
+        var container = document.getElementById('ordersummary3');
+        container.appendChild(button);
+
+        $('#ordersummary3').appendChild(button);
 
 
     }
@@ -122,6 +160,7 @@ $("#Addtoppingbtn").click(function (e) {
     x.remove(x.selectedIndex);
 
 });
+
 
 function validateValues() {
 
