@@ -14,7 +14,7 @@ $("form").submit(function (e) {
     if (validateValues()) {
 
         console.log("validate values");
-        var price;
+        var price = 0;
         var small = $('#small').is(':checked');
         var medium = $('#medium').is(':checked');
         var large = $('#large').is(':checked');
@@ -23,20 +23,6 @@ $("form").submit(function (e) {
         var stuffed = $('#stuffed').is(':checked');
         var glut = $('#glut').is(':checked');
 
-        if (crispy) {
-            crust = "crispy";
-            price = price + pizzacrust[0].price;
-        } else if (stuffed) {
-            crust = "stuffed";
-            price = price + pizzacrust[1].price;
-
-        } else if (glut) {
-            crust = "large";
-            price = price + pizzacrust[2].price;
-        }
-
-
-        var amount = $("#quanitity").val().trim();
         if (small) {
             value = "small";
             price = price + pizzasizeprices[0].price;
@@ -48,6 +34,23 @@ $("form").submit(function (e) {
             value = "large";
             price = price + pizzasizeprices[2].price;
         }
+        console.log("Price" + price);
+        if (crispy) {
+            crust = "crispy";
+            price = price + pizzacrust[0].price;
+        } else if (stuffed) {
+            crust = "stuffed";
+            price = price + pizzacrust[1].price;
+
+        } else if (glut) {
+            crust = "large";
+            price = price + pizzacrust[2].price;
+        }
+        console.log("Price" + price);
+
+
+        var amount = $("#quanitity").val().trim();
+     
 
         var array = [];
         var output;
@@ -67,9 +70,10 @@ $("form").submit(function (e) {
        
         for(let i = 0 ; i< array.length ;i++){
             
-            price = toppings[i].price;
+            price = price + toppings[i].price;
             output2 += ` ${array[i]} <br>`;
         }
+        console.log("Price" + price);
 
         console.log(array)
 
@@ -87,7 +91,9 @@ $("form").submit(function (e) {
         output3 = `<h2 class="display-5">
         Quantity
         </h2> 
-        <p>${amount}</p>`
+        <p>${amount}</p>
+        <p>Total amount is ${price}</p>
+        `
 
 
         $('#ordersummary').html(output);
