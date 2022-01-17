@@ -50,26 +50,26 @@ $("form").submit(function (e) {
 
 
         var amount = $("#quanitity").val().trim();
-     
+
 
         var array = [];
         var output;
         var output2 = ``;
         var output3;
-        
-        
+
+
 
         const lis = document.getElementById('list').getElementsByTagName('li');
 
         // Loop through the 
         for (let i = 0; i <= lis.length - 1; i++) {
-            array[i] =lis[i].innerHTML;
-            
+            array[i] = lis[i].innerHTML;
+
         }
 
-       
-        for(let i = 0 ; i< array.length ;i++){
-            
+
+        for (let i = 0; i < array.length; i++) {
+
             price = price + toppings[i].price;
             output2 += ` ${array[i]} <br>`;
         }
@@ -87,7 +87,7 @@ $("form").submit(function (e) {
                 Type of crust
                 </h2> 
         `
-    
+
         output3 = `<h2 class="display-5">
         Quantity
         </h2> 
@@ -152,7 +152,7 @@ function validateValues() {
     } else if (!small && !medium && !large) {
 
         setErrorSizeMessage("please Choose pizza size");
-        errcount = errcount+ 1;
+        errcount = errcount + 1;
     }
     if (crispy) {
 
@@ -168,19 +168,19 @@ function validateValues() {
     if (!crispy && !stuffed && !glut) {
 
         setErrorCrustMessage("Please choose crust");
-        errcount = errcount+ 1;
+        errcount = errcount + 1;
 
     }
 
     if (quantity == "") {
         setErrorQuantityMessage("Please enter quantity");
-        errcount = errcount+ 1;
+        errcount = errcount + 1;
 
     }
     if (!(quantity == "")) {
         if (isNaN(+quantity)) {
             setErrorQuantityMessage("Please input a number")
-            errcount = errcount+ 1;
+            errcount = errcount + 1;
 
         } else {
             setSuccesQuantityMessage("correct");
@@ -190,7 +190,7 @@ function validateValues() {
 
     if (errcount == 0) {
         resume = true;
-    } else if(errcount > 0){
+    } else if (errcount > 0) {
         resume = false;
     }
 
