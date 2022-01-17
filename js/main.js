@@ -5,7 +5,7 @@ import {
 } from './const.js'
 
 var value;
-
+var crust;
 // order form
 $("form").submit(function (e) {
     e.preventDefault();
@@ -18,6 +18,24 @@ $("form").submit(function (e) {
         var small = $('#small').is(':checked');
         var medium = $('#medium').is(':checked');
         var large = $('#large').is(':checked');
+
+        var crispy = $('#crispy').is(':checked');
+        var stuffed = $('#stuffed').is(':checked');
+        var glut = $('#glut').is(':checked');
+
+        if (crispy) {
+            crust = "crispy";
+            price = price + pizzacrust[0].price;
+        } else if (stuffed) {
+            crust = "stuffed";
+            price = price + pizzacrust[1].price;
+
+        } else if (glut) {
+            crust = "large";
+            price = price + pizzacrust[2].price;
+        }
+
+
         var amount = $("#quanitity").val().trim();
         if (small) {
             value = "small";
@@ -33,7 +51,7 @@ $("form").submit(function (e) {
 
         var array = [];
         var output;
-        var output2;
+        var output2 = ``;
         var output3;
         
         
@@ -45,18 +63,22 @@ $("form").submit(function (e) {
             array[i] =lis[i].innerHTML;
             
         }
-        console.log(array.length)
+
+       
         for(let i = 0 ; i< array.length ;i++){
-            output2 +=` ${array[i]} <br>`
+            
+            price = toppings[i].price;
+            output2 += ` ${array[i]} <br>`;
         }
 
         console.log(array)
 
-        output = `<h2 class="mt-2 text-uppercase text-decoration-underline">Order summary</h2>
+        output = `<h2 class="mt-2 text-uppercase text-decoration-underline">Order checkout</h2>
                   <h2 class="display-5">
                   Order Size
                   </h2> 
                    <p>${value}</p>  
+                   <p> The total amount is ${price}</p>
                    <h2 class="display-5">
                 Type of crust
                 </h2> 
